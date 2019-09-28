@@ -79,7 +79,7 @@ app.post('/signup', (req, res) => {
     handle: req.body.handle
   };
 
-  let errors = {};
+  const errors = {};
 
   if (isEmpty(newUser.email)) {
     errors.email = 'Must not be empty';
@@ -99,7 +99,7 @@ app.post('/signup', (req, res) => {
     errors.handle = 'Must not be empty';
   }
 
-  if(Object.keys(errors).length > 0) return res.status(400).json(errors)
+  if (Object.keys(errors).length > 0) return res.status(400).json(errors);
 
   let token, userId;
   // validate data
@@ -139,6 +139,47 @@ app.post('/signup', (req, res) => {
           .json({ email: 'The Email is already in use by another account' });
       } else {
         return res.status(500).json({ error: err.code });
+      }
+    });
+});
+
+// Login route
+app.post('/login', (req, res) => {
+  const user = {
+    email: req.body.email,
+    password: req.body.password
+  };
+
+  const errors = {};
+
+  if (isEmpty(user.email)) {
+    errors.email = 'Must not be empty';
+  } else if (!isEmail(user.email)) {
+    errors.email = 'Must be a valid email address';
+  }
+  if (isEmpty(user.password)) {
+    errors.password = 'Must not be empty';
+  }
+
+  if (Object.keys(errors).length > 0) return res.status(400).json(errors);
+
+  firebase
+    .auth()
+    .signInWithEmailAndPassword(user.email, user.password)
+    .then(data => {
+      return data.user.getIdToken();
+    })
+    .then(token => {
+      return res.json({ token });
+    })
+    .catch(err => {
+      console.error(err);
+      if (err.code === 'auth/wrong-password') {
+        return res
+          .status(403)
+          .json({ general: 'Wrong credentials, please try again' });
+      } else {
+        res.status(500).json({ error: err.code });
       }
     });
 });
