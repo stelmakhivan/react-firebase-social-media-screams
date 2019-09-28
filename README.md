@@ -1,1 +1,1 @@
-# react-firebase-social-media-screams
+# Social Media Screams
