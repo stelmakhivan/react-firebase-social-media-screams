@@ -4,7 +4,11 @@ const config = require('../util/config');
 firebase.initializeApp(config);
 
 const { admin, db } = require('../util/admin');
-const { validateSignUpData, validateLoginData } = require('../util/validators');
+const {
+  validateSignUpData,
+  validateLoginData,
+  reduceUserDetails
+} = require('../util/validators');
 
 exports.signup = (req, res) => {
   const newUser = {
@@ -89,8 +93,48 @@ exports.login = (req, res) => {
           .status(403)
           .json({ general: 'Wrong credentials, please try again' });
       } else {
-        res.status(500).json({ error: err.code });
+        return res.status(500).json({ error: err.code });
       }
+    });
+};
+
+exports.addUserDetails = (req, res) => {
+  const userDetails = reduceUserDetails(req.body);
+
+  db.doc(`/users/${req.user.handle}`)
+    .update(userDetails)
+    .then(() => {
+      return res.json({ message: 'Details added successfully' });
+    })
+    .catch(err => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+};
+
+exports.getAuthenticatedUser = (req, res) => {
+  const userData = {};
+  db.doc(`/users/${req.user.handle}`)
+    .get()
+    .then(doc => {
+      if (doc.exists) {
+        userData.credentials = doc.data();
+        return db
+          .collection('likes')
+          .where('userHandle', '==', req.user.handle)
+          .get();
+      }
+    })
+    .then(data => {
+      userData.likes = [];
+      data.forEach(doc => {
+        userData.likes.push(doc.data());
+      });
+      return res.json({ userData });
+    })
+    .catch(err => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
     });
 };
 
@@ -107,7 +151,7 @@ exports.uploadImage = (req, res) => {
 
   busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
     if (mimetype !== 'image/jpg' && mimetype !== 'image/png') {
-      return res.status(400).json({error: 'Wrong file type submited'})
+      return res.status(400).json({ error: 'Wrong file type submited' });
     }
     // image.png
     const imageExtension = filename.split('.')[filename.split('.').length - 1];
