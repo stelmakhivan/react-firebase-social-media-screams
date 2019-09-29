@@ -1,4 +1,5 @@
 import React from 'react';
+import { hot } from 'react-hot-loader/root';
 import logo from './logo.svg';
 import './App.css';
 
@@ -7,9 +8,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+        <p>Hot reload added</p>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -23,4 +22,4 @@ function App() {
   );
 }
 
-export default App;
+export default process.env.NODE_ENV === 'development' ? hot(App) : App;
