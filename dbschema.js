@@ -28,6 +28,16 @@ const db = {
       comment: 'First comment',
       createdAt: '2019-09-28T13:10:50.853Z'
     }
+  ],
+  notifications: [
+    {
+      recipient: 'user',
+      sender: 'john',
+      read: 'true | false',
+      screamId: 'voNyMzKYZnkmkUDS4UPJ',
+      type: 'like | comment',
+      createdAt: '2019-09-28T13:16:05.853Z'
+    }
   ]
 };
 
