@@ -7,6 +7,9 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
 const styles = {
   card: {
     display: 'flex',
@@ -33,6 +36,7 @@ export function Scream(props) {
     likeCount,
     commentCount
   } = scream;
+  dayjs.extend(relativeTime);
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -50,7 +54,7 @@ export function Scream(props) {
           {userHandle}
         </Typography>
         <Typography variant="body2" color="textSecondary">
-          {createdAt}
+          {dayjs(createdAt).fromNow()}
         </Typography>
         <Typography variant="body1" color="textSecondary">
           {body}
