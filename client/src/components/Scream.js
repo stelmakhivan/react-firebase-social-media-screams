@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -63,5 +64,18 @@ export function Scream(props) {
     </Card>
   );
 }
+
+Scream.propTypes = {
+  classes: PropTypes.object.isRequired,
+  scream: PropTypes.shape({
+    userImage: PropTypes.string,
+    body: PropTypes.string,
+    createdAt: PropTypes.string,
+    userHandle: PropTypes.string,
+    screamId: PropTypes.string,
+    likeCount: PropTypes.string,
+    commentCount: PropTypes.string
+  }).isRequired
+};
 
 export default withStyles(styles)(Scream);
