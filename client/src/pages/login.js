@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import { userActions } from '../redux/actions';
 
 import AppIcon from '../images/icon.png';
 import { withStyles } from '@material-ui/core/styles';
@@ -17,38 +19,33 @@ const styles = theme => ({
 
 export class login extends PureComponent {
   static propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    loginUser: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
+    UI: PropTypes.object.isRequired
   };
 
   state = {
     email: '',
     password: '',
-    loading: false,
     errors: {}
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.UI.errors) {
+      this.setState({
+        errors: this.props.UI.errors
+      });
+    }
+  }
+
   handleSubmit = event => {
     event.preventDefault();
-    this.setState({ loading: true });
     const userData = {
       email: this.state.email,
       password: this.state.password
     };
-    axios
-      .post('/login', userData)
-      .then(res => {
-        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
-        this.setState({
-          loading: false
-        });
-        this.props.history.push('/');
-      })
-      .catch(err => {
-        this.setState({
-          errors: err.response.data.errors || err.response.data,
-          loading: false
-        });
-      });
+    this.props.loginUser(userData, this.props.history);
   };
 
   handleChange = event => {
@@ -58,8 +55,11 @@ export class login extends PureComponent {
   };
 
   render() {
-    const { classes } = this.props;
-    const { loading, errors } = this.state;
+    const {
+      classes,
+      UI: { loading }
+    } = this.props;
+    const { errors } = this.state;
     return (
       <Grid container className={classes.form}>
         <Grid item sm></Grid>
@@ -122,4 +122,16 @@ export class login extends PureComponent {
   }
 }
 
-export default withStyles(styles)(login);
+const mapStateToProps = state => ({
+  user: state.user,
+  UI: state.UI
+});
+
+const mapDispatchToProps = {
+  loginUser: userActions.loginUser
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(login));

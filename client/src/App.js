@@ -13,6 +13,9 @@ import login from './pages/login';
 import signup from './pages/signup';
 import Navbar from './components/Navbar';
 
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 const theme = createMuiTheme(themeConfig);
 
 let authenticated;
@@ -30,7 +33,7 @@ if (token) {
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
+      <Provider store={store}>
         <Router>
           <Navbar />
           <div className="container">
@@ -51,7 +54,7 @@ function App() {
             </Switch>
           </div>
         </Router>
-      </div>
+      </Provider>
     </ThemeProvider>
   );
 }
