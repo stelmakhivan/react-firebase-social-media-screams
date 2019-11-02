@@ -27,17 +27,8 @@ export class login extends PureComponent {
 
   state = {
     email: '',
-    password: '',
-    errors: {}
+    password: ''
   };
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.UI.errors) {
-      this.setState({
-        errors: this.props.UI.errors
-      });
-    }
-  }
 
   handleSubmit = event => {
     event.preventDefault();
@@ -57,9 +48,9 @@ export class login extends PureComponent {
   render() {
     const {
       classes,
-      UI: { loading }
+      UI: { loading, errors = {} }
     } = this.props;
-    const { errors } = this.state;
+
     return (
       <Grid container className={classes.form}>
         <Grid item sm></Grid>
