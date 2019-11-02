@@ -1,7 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+import { userActions } from '../redux/actions';
 
 import AppIcon from '../images/icon.png';
 import { withStyles } from '@material-ui/core/styles';
@@ -17,42 +19,28 @@ const styles = theme => ({
 
 export class signup extends PureComponent {
   static propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    signupUser: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired,
+    UI: PropTypes.object.isRequired
   };
 
   state = {
     email: '',
     password: '',
     confirmPassword: '',
-    handle: '',
-    loading: false,
-    errors: {}
+    handle: ''
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    this.setState({ loading: true });
     const newUserData = {
       email: this.state.email,
       password: this.state.password,
       confirmPassword: this.state.confirmPassword,
       handle: this.state.handle
     };
-    axios
-      .post('/signup', newUserData)
-      .then(res => {
-        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
-        this.setState({
-          loading: false
-        });
-        this.props.history.push('/');
-      })
-      .catch(err => {
-        this.setState({
-          errors: err.response.data.errors || err.response.data,
-          loading: false
-        });
-      });
+    this.props.signupUser(newUserData, this.props.history);
   };
 
   handleChange = event => {
@@ -62,8 +50,10 @@ export class signup extends PureComponent {
   };
 
   render() {
-    const { classes } = this.props;
-    const { loading, errors } = this.state;
+    const {
+      classes,
+      UI: { loading, errors = {} }
+    } = this.props;
     return (
       <Grid container className={classes.form}>
         <Grid item sm></Grid>
@@ -150,4 +140,16 @@ export class signup extends PureComponent {
   }
 }
 
-export default withStyles(styles)(signup);
+const mapStateToProps = state => ({
+  user: state.user,
+  UI: state.UI
+});
+
+const mapDispatchToProps = {
+  signupUser: userActions.signupUser
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(signup));
