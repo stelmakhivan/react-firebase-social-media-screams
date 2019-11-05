@@ -70,6 +70,17 @@ export const getUserData = () => dispatch => {
     );
 };
 
+export const uploadImage = formData => dispatch => {
+  console.log('formData', formData);
+  dispatch({ type: LOADING_USER });
+  axios
+    .post('/user/image', formData)
+    .then(() => {
+      dispatch(getUserData());
+    })
+    .catch(err => console.log(err.response));
+};
+
 function setAuthorizationHeader(token) {
   const FBIdToken = `Bearer ${token}`;
   localStorage.setItem('FBIdToken', FBIdToken);
