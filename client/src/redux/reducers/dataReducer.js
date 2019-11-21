@@ -17,27 +17,27 @@ export default function dataReducer(state = initialState, action) {
       return {
         ...state,
         loading: true
-      }
+      };
     case SET_SCREAMS:
       return {
         ...state,
         screams: action.payload,
         loading: false
-      }
+      };
     case LIKE_SCREAM:
     case UNLIKE_SCREAM:
       const index = state.screams.findIndex(
         scream => scream.screamId === action.payload.screamId
       );
-      const screams = state.screams.reduce((accumulator, prevValue) => {
-        accumulator.push(prevValue);
-        return accumulator
+      const screams = state.screams.reduce((accumulator, currentValue) => {
+        accumulator.push(currentValue);
+        return accumulator;
       }, []);
       screams[index] = action.payload;
       return {
         ...state,
         screams
-      }
+      };
     default:
       return state;
   }
