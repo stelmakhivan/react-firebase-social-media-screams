@@ -12,14 +12,15 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 // icons
 import EditIcon from '@material-ui/icons/Edit';
 
 const styles = theme => ({
-  container: {}
+  button: {
+    float: 'right'
+  }
 });
 
 class EditDetails extends PureComponent {
@@ -72,6 +73,7 @@ class EditDetails extends PureComponent {
       location: this.state.location
     };
     this.props.editUserDetails(userDetails);
+    this.handleClose();
   };
 
   render() {
@@ -127,10 +129,10 @@ class EditDetails extends PureComponent {
             </form>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primaty">
+            <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
-            <Button onClick={this.handleSubmit} color="primaty">
+            <Button onClick={this.handleSubmit} color="primary">
               Save
             </Button>
           </DialogActions>
