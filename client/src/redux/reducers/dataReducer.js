@@ -1,3 +1,5 @@
+import { cloneDeep } from 'lodash';
+
 import {
   SET_SCREAMS,
   LOADING_DATA,
@@ -29,10 +31,7 @@ export default function dataReducer(state = initialState, action) {
       const index = state.screams.findIndex(
         scream => scream.screamId === action.payload.screamId
       );
-      const screams = state.screams.reduce((accumulator, currentValue) => {
-        accumulator.push(currentValue);
-        return accumulator;
-      }, []);
+      const screams = cloneDeep(state.screams);
       screams[index] = action.payload;
       return {
         ...state,
