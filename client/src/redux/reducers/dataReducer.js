@@ -4,7 +4,8 @@ import {
   SET_SCREAMS,
   LOADING_DATA,
   LIKE_SCREAM,
-  UNLIKE_SCREAM
+  UNLIKE_SCREAM,
+  DELETE_SCREAM
 } from '../types';
 
 const initialState = {
@@ -27,7 +28,7 @@ export default function dataReducer(state = initialState, action) {
         loading: false
       };
     case LIKE_SCREAM:
-    case UNLIKE_SCREAM:
+    case UNLIKE_SCREAM: {
       const index = state.screams.findIndex(
         scream => scream.screamId === action.payload.screamId
       );
@@ -37,6 +38,18 @@ export default function dataReducer(state = initialState, action) {
         ...state,
         screams
       };
+    }
+    case DELETE_SCREAM: {
+      const index = state.screams.findIndex(
+        scream => scream.screamId === action.payload.screamId
+      );
+      const screams = cloneDeep(state.screams);
+      screams.splice(index, 1);
+      return {
+        ...state,
+        screams
+      };
+    }
     default:
       return state;
   }

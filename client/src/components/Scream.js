@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -21,11 +21,13 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 
 import MyButton from '../util/MyButton';
+import DeleteScream from './DeleteScream';
 
 const styles = {
   card: {
     display: 'flex',
-    marginBottom: 20
+    marginBottom: 20,
+    position: 'relative'
   },
   content: {
     padding: 25,
@@ -38,8 +40,12 @@ const styles = {
 };
 
 export function Scream(props) {
-  const { classes, scream, user } = props;
-  const { likes, authenticated} = user;
+  const { classes, scream, user, likeScream, unlikeScream } = props;
+  const {
+    likes,
+    authenticated,
+    credentials: { handle }
+  } = user;
   const {
     userImage,
     body,
@@ -54,13 +60,13 @@ export function Scream(props) {
   const likedScream =
     likes && likes.find(like => like.screamId === screamId) ? true : false;
 
-  const likeScream = () => {
-    props.likeScream(screamId)
-  };
+  const handleLike = useCallback(() => {
+    likeScream(screamId);
+  }, [screamId, likeScream]);
 
-  const unlikeScream = () => {
-    props.unlikeScream(screamId)
-  };
+  const handleUnlike = useCallback(() => {
+    unlikeScream(screamId);
+  }, [screamId, unlikeScream]);
 
   const likeButton = !authenticated ? (
     <MyButton tip="Like">
@@ -68,17 +74,20 @@ export function Scream(props) {
         <FavoriteBorder color="primary" />
       </Link>
     </MyButton>
+  ) : likedScream ? (
+    <MyButton tip="Undo like" onClick={handleUnlike}>
+      <FavoriteIcon color="primary" />
+    </MyButton>
   ) : (
-    likedScream ? (
-      <MyButton tip="Undo like" onClick={unlikeScream}>
-        <FavoriteIcon color="primary" />
-      </MyButton>
-    ) : (
-      <MyButton tip="Like" onClick={likeScream}>
-        <FavoriteBorder color="primary" />
-      </MyButton>
-    )
+    <MyButton tip="Like" onClick={handleLike}>
+      <FavoriteBorder color="primary" />
+    </MyButton>
   );
+
+  const deleteButton =
+    authenticated && userHandle === handle ? (
+      <DeleteScream screamId={screamId} />
+    ) : null;
 
   return (
     <Card className={classes.card}>
@@ -96,6 +105,7 @@ export function Scream(props) {
         >
           {userHandle}
         </Typography>
+        {deleteButton}
         <Typography variant="body2" color="textSecondary">
           {dayjs(createdAt).fromNow()}
         </Typography>
@@ -113,7 +123,7 @@ export function Scream(props) {
   );
 }
 
-Scream.propTypes = { 
+Scream.propTypes = {
   classes: PropTypes.object.isRequired,
   scream: PropTypes.shape({
     userImage: PropTypes.string,
@@ -126,7 +136,7 @@ Scream.propTypes = {
   }).isRequired,
   likeScream: PropTypes.func.isRequired,
   unlikeScream: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -135,7 +145,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   likeScream: dataActions.likeScream,
-  unlikeScream: dataActions.unlikeScream,
-}
+  unlikeScream: dataActions.unlikeScream
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Scream));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(Scream));
