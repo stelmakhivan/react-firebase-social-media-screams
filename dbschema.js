@@ -15,6 +15,8 @@ const db = {
   screams: [
     {
       userHandle: 'user',
+      userImage:
+        'https://firebasestorage.googleapis.com/v0/b/social-media-screams.appspot.com/o/68644931927.jpg?alt=media',
       body: 'First Scream !!!',
       createdAt: '2019-09-28T13:09:45.853Z',
       likeCount: 5,
