@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import theme from '../util/theme'
+import theme from '../util/theme';
 
 // MUI components
 import AppBar from '@material-ui/core/AppBar';
@@ -10,11 +10,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 
 // icons
-import AddIcon from '@material-ui/icons/Add';
 import HomeIcon from '@material-ui/icons/Home';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 
 import MyButton from '../util/MyButton';
+import PostScream from './PostScream';
 
 export class Navbar extends PureComponent {
   static propTypes = {
@@ -28,16 +28,16 @@ export class Navbar extends PureComponent {
         <Toolbar className="nav-container">
           {authenticated ? (
             <Fragment>
-              <MyButton tip="Post a screen">
-                <AddIcon htmlColor={theme.palette.primary.contrastText} />
-              </MyButton>
+              <PostScream />
               <Link to="/">
                 <MyButton tip="Home">
                   <HomeIcon htmlColor={theme.palette.primary.contrastText} />
                 </MyButton>
               </Link>
               <MyButton tip="Notifications">
-                <NotificationsIcon htmlColor={theme.palette.primary.contrastText} />
+                <NotificationsIcon
+                  htmlColor={theme.palette.primary.contrastText}
+                />
               </MyButton>
             </Fragment>
           ) : (

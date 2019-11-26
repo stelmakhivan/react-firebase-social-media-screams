@@ -5,7 +5,8 @@ import {
   LOADING_DATA,
   LIKE_SCREAM,
   UNLIKE_SCREAM,
-  DELETE_SCREAM
+  DELETE_SCREAM,
+  POST_SCREAM
 } from '../types';
 
 const initialState = {
@@ -29,10 +30,10 @@ export default function dataReducer(state = initialState, action) {
       };
     case LIKE_SCREAM:
     case UNLIKE_SCREAM: {
-      const index = state.screams.findIndex(
+      const screams = cloneDeep(state.screams);
+      const index = screams.findIndex(
         scream => scream.screamId === action.payload.screamId
       );
-      const screams = cloneDeep(state.screams);
       screams[index] = action.payload;
       return {
         ...state,
@@ -40,14 +41,20 @@ export default function dataReducer(state = initialState, action) {
       };
     }
     case DELETE_SCREAM: {
-      const index = state.screams.findIndex(
-        scream => scream.screamId === action.payload.screamId
-      );
       const screams = cloneDeep(state.screams);
+      const index = state.screams.findIndex(
+        scream => scream.screamId === action.payload
+      );
       screams.splice(index, 1);
       return {
         ...state,
         screams
+      };
+    }
+    case POST_SCREAM: {
+      return {
+        ...state,
+        screams: [action.payload, ...state.screams]
       };
     }
     default:
