@@ -47,30 +47,30 @@ const PostScream = props => {
   const [body, setBody] = useState('');
   const [errors, setErrors] = useState({});
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setBody(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    postScream({body});
+    postScream({ body });
   };
 
   const hanldeOpen = () => {
     setModalVisibility(true);
-  }
+  };
 
   const hanldeClose = () => {
     setBody('');
     setErrors({});
     setModalVisibility(false);
-  }
+  };
 
   useEffect(() => {
     if (UIerrors) {
       setErrors(UIerrors);
     }
-    if(!Object.keys(UIerrors).length && !loading) {
+    if (!Object.keys(UIerrors).length && !loading) {
       hanldeClose();
     }
   }, [UIerrors, loading]);
@@ -80,12 +80,7 @@ const PostScream = props => {
       <MyButton tip="Post a scream" onClick={hanldeOpen}>
         <AddIcon htmlColor={theme.palette.primary.contrastText} />
       </MyButton>
-      <Dialog
-        open={open}
-        onClose={hanldeClose}
-        fullWidth
-        maxWidth="sm"
-      >
+      <Dialog open={open} onClose={hanldeClose} fullWidth maxWidth="sm">
         <MyButton
           tip="Close"
           onClick={hanldeClose}
@@ -118,7 +113,12 @@ const PostScream = props => {
               disabled={loading}
             >
               Submit
-              {loading && <CircularProgress size={30} className={classes.progressSpinner} />}
+              {loading && (
+                <CircularProgress
+                  size={30}
+                  className={classes.progressSpinner}
+                />
+              )}
             </Button>
           </form>
         </DialogContent>

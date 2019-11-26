@@ -54,11 +54,8 @@ export default function dataReducer(state = initialState, action) {
     case POST_SCREAM: {
       return {
         ...state,
-        screams: [
-          action.payload,
-          ...state.screams
-        ]
-      }
+        screams: [action.payload, ...state.screams]
+      };
     }
     default:
       return state;
