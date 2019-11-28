@@ -2,8 +2,8 @@ import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { dataActions } from '../redux/actions';
-import theme from '../util/theme';
+import { dataActions } from '../../redux/actions';
+import theme from '../../util/theme';
 
 // MUI components
 import Button from '@material-ui/core/Button';
@@ -17,7 +17,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 
 const styles = theme => ({
   closeButton: {

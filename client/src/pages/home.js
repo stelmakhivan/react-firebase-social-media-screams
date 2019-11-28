@@ -5,8 +5,8 @@ import PropTypes from 'prop-types';
 
 import { dataActions } from '../redux/actions';
 
-import Scream from '../components/Scream';
-import Profile from '../components/Profile';
+import Scream from '../components/scream/Scream';
+import Profile from '../components/profile/Profile';
 
 export class home extends Component {
   static propTypes = {

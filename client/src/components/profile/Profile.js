@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { userActions } from '../redux/actions';
+import { userActions } from '../../redux/actions';
 
 import EditDetails from './EditDetails';
 
@@ -20,7 +20,7 @@ import MuiIconLink from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 
 const styles = theme => ({
   paper: {

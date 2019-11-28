@@ -2,7 +2,7 @@ import React, { Fragment, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { dataActions } from '../redux/actions';
+import { dataActions } from '../../redux/actions';
 import { withStyles } from '@material-ui/core/styles';
 import dayjs from 'dayjs';
 
@@ -18,7 +18,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import CloseIcon from '@material-ui/icons/Close';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
 
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 import LikeButton from './LikeButton';
 
 const styles = {

@@ -2,13 +2,13 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { dataActions } from '../redux/actions';
+import { dataActions } from '../../redux/actions';
 
 // icons
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 
 const LikeButton = ({
   user: { authenticated, likes },

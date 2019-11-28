@@ -12,7 +12,7 @@ import AuthRoute from './util/AuthRoute';
 import home from './pages/home';
 import login from './pages/login';
 import signup from './pages/signup';
-import Navbar from './components/Navbar';
+import Navbar from './components/layout/Navbar';
 
 import { Provider } from 'react-redux';
 import store from './redux/store';

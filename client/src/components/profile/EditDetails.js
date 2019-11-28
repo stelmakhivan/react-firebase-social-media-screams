@@ -2,7 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { userActions } from '../redux/actions';
+import { userActions } from '../../redux/actions';
 
 // MUI components
 import Button from '@material-ui/core/Button';
@@ -15,7 +15,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 // icons
 import EditIcon from '@material-ui/icons/Edit';
 
-import MyButton from '../util/MyButton';
+import MyButton from '../../util/MyButton';
 
 const styles = theme => ({
   button: {
