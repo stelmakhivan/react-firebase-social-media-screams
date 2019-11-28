@@ -83,7 +83,7 @@ const PostScream = props => {
       <Dialog open={open} onClose={hanldeClose} fullWidth maxWidth="sm">
         <MyButton
           tip="Close"
-          onClick={hanldeClose}
+          onClick={clearErrors}
           tipClassName={classes.closeButton}
         >
           <CloseIcon />
