@@ -20,8 +20,9 @@ import UnfoldMore from '@material-ui/icons/UnfoldMore';
 
 import MyButton from '../../util/MyButton';
 import LikeButton from './LikeButton';
+import Comments from './Comments';
 
-const styles = {
+const styles = theme => ({
   expandButton: {
     position: 'absolute',
     right: '2%'
@@ -35,10 +36,6 @@ const styles = {
     borderRadius: '50%',
     objectFit: 'cover'
   },
-  invisibleSeparator: {
-    border: 'none',
-    margin: 4
-  },
   closeButton: {
     position: 'absolute',
     right: '2%',
@@ -48,20 +45,21 @@ const styles = {
     textAlign: 'center',
     marginTop: 50,
     marginBottom: 50
-  }
-};
+  },
+  ...theme.form
+});
 
 const ScreamDialog = props => {
   const {
     classes,
     scream: {
-      // screamId,
       body,
       createdAt,
       likeCount,
       commentCount,
       userImage,
-      userHandle
+      userHandle,
+      comments
     },
     UI: { loading },
     getScream,
@@ -109,6 +107,8 @@ const ScreamDialog = props => {
         </MyButton>
         <span>{commentCount} Comments</span>
       </Grid>
+      <hr className={classes.visibleSeparator} />
+      <Comments comments={comments} />
     </Grid>
   );
 
