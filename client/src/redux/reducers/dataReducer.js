@@ -2,6 +2,7 @@ import { cloneDeep } from 'lodash';
 
 import {
   SET_SCREAMS,
+  SET_SCREAM,
   LOADING_DATA,
   LIKE_SCREAM,
   UNLIKE_SCREAM,
@@ -28,6 +29,12 @@ export default function dataReducer(state = initialState, action) {
         screams: action.payload,
         loading: false
       };
+    case SET_SCREAM:
+      return {
+        ...state,
+        scream: action.payload,
+        loading: false
+      };
     case LIKE_SCREAM:
     case UNLIKE_SCREAM: {
       const screams = cloneDeep(state.screams);
@@ -35,10 +42,14 @@ export default function dataReducer(state = initialState, action) {
         scream => scream.screamId === action.payload.screamId
       );
       screams[index] = action.payload;
-      return {
+      const newState = {
         ...state,
         screams
-      };
+      }
+      if (state.scream.screamId === action.payload.screamId) {
+        newState.scream = action.payload
+      }
+      return newState;
     }
     case DELETE_SCREAM: {
       const screams = cloneDeep(state.screams);
