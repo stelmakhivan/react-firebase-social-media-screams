@@ -21,6 +21,7 @@ import UnfoldMore from '@material-ui/icons/UnfoldMore';
 import MyButton from '../../util/MyButton';
 import LikeButton from './LikeButton';
 import Comments from './Comments';
+import CommentForm from './CommentForm';
 
 const styles = theme => ({
   expandButton: {
@@ -78,7 +79,7 @@ const ScreamDialog = props => {
 
   const dialogMarkup = loading ? (
     <div className={classes.spinnerContainer}>
-      <CircularProgress size={150} thickness={2}/>
+      <CircularProgress size={150} thickness={2} />
     </div>
   ) : (
     <Grid container spacing={2}>
@@ -107,7 +108,8 @@ const ScreamDialog = props => {
         </MyButton>
         <span>{commentCount} Comments</span>
       </Grid>
-      <hr className={classes.visibleSeparator} />
+      {!!comments.length && <hr className={classes.visibleSeparator} />}
+      <CommentForm screamId={screamId} />
       <Comments comments={comments} />
     </Grid>
   );
@@ -127,7 +129,7 @@ const ScreamDialog = props => {
           onClick={hanldeClose}
           tipClassName={classes.closeButton}
         >
-           <CloseIcon />
+          <CloseIcon />
         </MyButton>
         <DialogContent className={classes.dialogContent}>
           {dialogMarkup}
