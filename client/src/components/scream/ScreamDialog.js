@@ -64,7 +64,8 @@ const ScreamDialog = props => {
     },
     UI: { loading },
     getScream,
-    screamId
+    screamId,
+    clearErrors
   } = props;
   const [open, setModalVisibility] = useState(false);
 
@@ -75,6 +76,7 @@ const ScreamDialog = props => {
 
   const hanldeClose = () => {
     setModalVisibility(false);
+    clearErrors();
   };
 
   const dialogMarkup = loading ? (
@@ -108,8 +110,8 @@ const ScreamDialog = props => {
         </MyButton>
         <span>{commentCount} Comments</span>
       </Grid>
-      {!!comments.length && <hr className={classes.visibleSeparator} />}
-      <CommentForm screamId={screamId} />
+      {comments && !!comments.length && <hr className={classes.visibleSeparator} />}
+      <CommentForm screamId={screamId} comments={comments} />
       <Comments comments={comments} />
     </Grid>
   );
@@ -142,6 +144,7 @@ const ScreamDialog = props => {
 ScreamDialog.propTypes = {
   classes: PropTypes.object.isRequired,
   getScream: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
   screamId: PropTypes.string.isRequired,
   userHandle: PropTypes.string.isRequired,
   UI: PropTypes.object.isRequired,
@@ -154,5 +157,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  getScream: dataActions.getScream
+  getScream: dataActions.getScream,
+  clearErrors: dataActions.clearErrors
 })(withStyles(styles)(ScreamDialog));
