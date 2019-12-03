@@ -25,7 +25,7 @@ export const getScreams = () => dispatch => {
       });
     })
     .catch(err => {
-      console.log('err', err);
+      console.log('err [getScreams]', err);
       dispatch({
         type: SET_SCREAMS,
         payload: null
@@ -41,7 +41,7 @@ export const getScream = screamId => dispatch => {
       dispatch({ type: SET_SCREAM, payload: res.data });
       dispatch({ type: STOP_LOADING_UI });
     })
-    .catch(err => console.log('err', err));
+    .catch(err => console.log('err [getScream]', err));
 };
 
 export const likeScream = screamId => dispatch => {
@@ -53,7 +53,7 @@ export const likeScream = screamId => dispatch => {
         payload: res.data
       });
     })
-    .catch(err => console.log('err', err));
+    .catch(err => console.log('err [likeScream]', err));
 };
 
 export const unlikeScream = screamId => dispatch => {
@@ -65,7 +65,7 @@ export const unlikeScream = screamId => dispatch => {
         payload: res.data
       });
     })
-    .catch(err => console.log('err', err));
+    .catch(err => console.log('err [unlikeScream]', err));
 };
 
 export const submitComment = (screamId, commentData) => dispatch => {
@@ -76,7 +76,7 @@ export const submitComment = (screamId, commentData) => dispatch => {
       dispatch(clearErrors());
     })
     .catch(err => {
-      console.log('err', err);
+      console.log('err [submitComment]', err);
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data.errors || err.response.data
@@ -93,7 +93,7 @@ export const deleteScream = screamId => dispatch => {
         payload: screamId
       });
     })
-    .catch(err => console.log('err', err));
+    .catch(err => console.log('err [deleteScream]', err));
 };
 
 export const postScream = newScream => dispatch => {
@@ -108,10 +108,26 @@ export const postScream = newScream => dispatch => {
       dispatch(clearErrors());
     })
     .catch(err => {
-      console.log('err', err);
+      console.log('err [postScream]', err);
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data.errors || err.response.data
+      });
+    });
+};
+
+export const getUserData = userHandle => dispatch => {
+  dispatch({ type: LOADING_DATA });
+  axios
+    .get(`/user/${userHandle}`)
+    .then(res => {
+      dispatch({ type: SET_SCREAMS, payload: res.data.screams });
+    })
+    .catch(err => {
+      console.log('err [getUserData]', err);
+      dispatch({
+        type: SET_SCREAMS,
+        payload: null
       });
     });
 };
