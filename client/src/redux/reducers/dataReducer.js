@@ -7,7 +7,8 @@ import {
   LIKE_SCREAM,
   UNLIKE_SCREAM,
   DELETE_SCREAM,
-  POST_SCREAM
+  POST_SCREAM,
+  SUBMIT_COMMENT
 } from '../types';
 
 const initialState = {
@@ -45,12 +46,20 @@ export default function dataReducer(state = initialState, action) {
       const newState = {
         ...state,
         screams
-      }
+      };
       if (state.scream.screamId === action.payload.screamId) {
-        newState.scream = action.payload
+        newState.scream = action.payload;
       }
       return newState;
     }
+    case SUBMIT_COMMENT:
+      return {
+        ...state,
+        scream: {
+          ...state.scream,
+          comments: [action.payload, ...state.scream.comments]
+        }
+      };
     case DELETE_SCREAM: {
       const screams = cloneDeep(state.screams);
       const index = state.screams.findIndex(

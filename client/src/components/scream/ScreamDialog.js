@@ -20,8 +20,10 @@ import UnfoldMore from '@material-ui/icons/UnfoldMore';
 
 import MyButton from '../../util/MyButton';
 import LikeButton from './LikeButton';
+import Comments from './Comments';
+import CommentForm from './CommentForm';
 
-const styles = {
+const styles = theme => ({
   expandButton: {
     position: 'absolute',
     right: '2%'
@@ -35,10 +37,6 @@ const styles = {
     borderRadius: '50%',
     objectFit: 'cover'
   },
-  invisibleSeparator: {
-    border: 'none',
-    margin: 4
-  },
   closeButton: {
     position: 'absolute',
     right: '2%',
@@ -48,24 +46,26 @@ const styles = {
     textAlign: 'center',
     marginTop: 50,
     marginBottom: 50
-  }
-};
+  },
+  ...theme.form
+});
 
 const ScreamDialog = props => {
   const {
     classes,
     scream: {
-      // screamId,
       body,
       createdAt,
       likeCount,
       commentCount,
       userImage,
-      userHandle
+      userHandle,
+      comments
     },
     UI: { loading },
     getScream,
-    screamId
+    screamId,
+    clearErrors
   } = props;
   const [open, setModalVisibility] = useState(false);
 
@@ -76,11 +76,12 @@ const ScreamDialog = props => {
 
   const hanldeClose = () => {
     setModalVisibility(false);
+    clearErrors();
   };
 
   const dialogMarkup = loading ? (
     <div className={classes.spinnerContainer}>
-      <CircularProgress size={150} thickness={2}/>
+      <CircularProgress size={150} thickness={2} />
     </div>
   ) : (
     <Grid container spacing={2}>
@@ -109,6 +110,9 @@ const ScreamDialog = props => {
         </MyButton>
         <span>{commentCount} Comments</span>
       </Grid>
+      {comments && !!comments.length && <hr className={classes.visibleSeparator} />}
+      <CommentForm screamId={screamId} comments={comments} />
+      <Comments comments={comments} />
     </Grid>
   );
 
@@ -127,7 +131,7 @@ const ScreamDialog = props => {
           onClick={hanldeClose}
           tipClassName={classes.closeButton}
         >
-           <CloseIcon />
+          <CloseIcon />
         </MyButton>
         <DialogContent className={classes.dialogContent}>
           {dialogMarkup}
@@ -140,6 +144,7 @@ const ScreamDialog = props => {
 ScreamDialog.propTypes = {
   classes: PropTypes.object.isRequired,
   getScream: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
   screamId: PropTypes.string.isRequired,
   userHandle: PropTypes.string.isRequired,
   UI: PropTypes.object.isRequired,
@@ -152,5 +157,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  getScream: dataActions.getScream
+  getScream: dataActions.getScream,
+  clearErrors: dataActions.clearErrors
 })(withStyles(styles)(ScreamDialog));
