@@ -41,7 +41,7 @@ const db = {
       createdAt: '2019-09-28T13:16:05.853Z'
     }
   ]
-};
+}
 
 const userDetails = {
   // Redux data
@@ -66,4 +66,4 @@ const userDetails = {
       screamId: 'voNyMzKYZnkmkUDS4UPJ'
     }
   ]
-};
+}

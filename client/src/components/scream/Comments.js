@@ -1,12 +1,12 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
-import dayjs from 'dayjs';
+import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import { Link } from 'react-router-dom'
+import dayjs from 'dayjs'
 
 // MUI components
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
 
 const styles = theme => ({
   ...theme.form,
@@ -19,13 +19,13 @@ const styles = theme => ({
   commentData: {
     marginLeft: 20
   }
-});
+})
 
 const Comments = ({ comments, classes }) => {
   return (
     <Grid container>
       {comments.map((comment, index) => {
-        const { body, createdAt, userImage, userHandle } = comment;
+        const { body, createdAt, userImage, userHandle } = comment
         return (
           <Fragment key={createdAt}>
             <Grid item sm={12}>
@@ -60,14 +60,14 @@ const Comments = ({ comments, classes }) => {
               <hr className={classes.visibleSeparator} />
             )}
           </Fragment>
-        );
+        )
       })}
     </Grid>
-  );
-};
+  )
+}
 
 Comments.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.object).isRequired
-};
+}
 
-export default withStyles(styles)(Comments);
+export default withStyles(styles)(Comments)

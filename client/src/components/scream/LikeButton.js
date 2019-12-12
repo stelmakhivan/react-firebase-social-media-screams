@@ -1,14 +1,14 @@
-import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { dataActions } from '../../redux/actions';
+import React, { useCallback } from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { dataActions } from '../../redux/actions'
 
 // icons
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import FavoriteIcon from '@material-ui/icons/Favorite'
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
 
-import MyButton from '../../util/MyButton';
+import MyButton from '../../util/MyButton'
 
 const LikeButton = ({
   user: { authenticated, likes },
@@ -17,15 +17,15 @@ const LikeButton = ({
   unlikeScream
 }) => {
   const likedScream =
-    likes && likes.find(like => like.screamId === screamId) ? true : false;
+    likes && likes.find(like => like.screamId === screamId) ? true : false
 
   const handleLike = useCallback(() => {
-    likeScream(screamId);
-  }, [screamId, likeScream]);
+    likeScream(screamId)
+  }, [screamId, likeScream])
 
   const handleUnlike = useCallback(() => {
-    unlikeScream(screamId);
-  }, [screamId, unlikeScream]);
+    unlikeScream(screamId)
+  }, [screamId, unlikeScream])
 
   return !authenticated ? (
     <Link to="/login">
@@ -41,23 +41,23 @@ const LikeButton = ({
     <MyButton tip="Like" onClick={handleLike}>
       <FavoriteBorder color="primary" />
     </MyButton>
-  );
-};
+  )
+}
 
 LikeButton.propTypes = {
   user: PropTypes.object.isRequired,
   screamId: PropTypes.string.isRequired,
   likeScream: PropTypes.func.isRequired,
   unlikeScream: PropTypes.func.isRequired
-};
+}
 
 const mapStateToProps = state => ({
   user: state.user
-});
+})
 
 const mapDispatchToProps = {
   likeScream: dataActions.likeScream,
   unlikeScream: dataActions.unlikeScream
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(LikeButton);
+export default connect(mapStateToProps, mapDispatchToProps)(LikeButton)

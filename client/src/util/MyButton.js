@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const MyButton = ({ children, onClick, btnClassName, tipClassName, tip }) => {
   return (
@@ -10,7 +10,7 @@ const MyButton = ({ children, onClick, btnClassName, tipClassName, tip }) => {
         {children}
       </IconButton>
     </Tooltip>
-  );
-};
+  )
+}
 
-export default MyButton;
+export default MyButton

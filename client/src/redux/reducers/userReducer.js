@@ -1,11 +1,14 @@
+import { cloneDeep } from 'lodash'
+
 import {
   SET_USER,
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
   LOADING_USER,
   LIKE_SCREAM,
-  UNLIKE_SCREAM
-} from '../types';
+  UNLIKE_SCREAM,
+  MARK_NOTIFICATIONS_READ
+} from '../types'
 
 const initialState = {
   authenticated: false,
@@ -13,7 +16,7 @@ const initialState = {
   credentials: {},
   likes: [],
   notifications: []
-};
+}
 
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -21,20 +24,20 @@ export default function(state = initialState, action) {
       return {
         ...state,
         authenticated: true
-      };
+      }
     case SET_UNAUTHENTICATED:
-      return initialState;
+      return initialState
     case SET_USER:
       return {
         authenticated: true,
         loading: false,
         ...action.payload
-      };
+      }
     case LOADING_USER:
       return {
         ...state,
         loading: true
-      };
+      }
     case LIKE_SCREAM:
       return {
         ...state,
@@ -45,15 +48,22 @@ export default function(state = initialState, action) {
             screamId: action.payload.screamId
           }
         ]
-      };
+      }
     case UNLIKE_SCREAM:
       return {
         ...state,
         likes: state.likes.filter(
           like => like.screamId !== action.payload.screamId
         )
-      };
+      }
+    case MARK_NOTIFICATIONS_READ:
+      const notifications = cloneDeep(state.notifications)
+      notifications.forEach(not => (not.read = true))
+      return {
+        ...state,
+        notifications
+      }
     default:
-      return state;
+      return state
   }
 }
