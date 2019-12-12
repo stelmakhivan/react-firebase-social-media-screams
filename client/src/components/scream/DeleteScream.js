@@ -1,20 +1,20 @@
-import React, { Fragment, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { dataActions } from '../../redux/actions';
+import React, { Fragment, useState, useCallback } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { dataActions } from '../../redux/actions'
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles'
 
 // MUI components
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import DialogActions from '@material-ui/core/DialogActions'
 
 // icons
-import DeleteOutline from '@material-ui/icons/DeleteOutline';
+import DeleteOutline from '@material-ui/icons/DeleteOutline'
 
-import MyButton from '../../util/MyButton';
+import MyButton from '../../util/MyButton'
 
 const styles = {
   deleteButton: {
@@ -22,15 +22,15 @@ const styles = {
     right: '2%',
     top: '10%'
   }
-};
+}
 
 const DeleteScream = props => {
-  const [open, setModalVisibility] = useState(false);
-  const { classes, screamId, deleteScream } = props;
+  const [open, setModalVisibility] = useState(false)
+  const { classes, screamId, deleteScream } = props
   const handleDelete = useCallback(() => {
-    deleteScream(screamId);
-    setModalVisibility(false);
-  }, [deleteScream, screamId]);
+    deleteScream(screamId)
+    setModalVisibility(false)
+  }, [deleteScream, screamId])
   return (
     <Fragment>
       <MyButton
@@ -57,15 +57,15 @@ const DeleteScream = props => {
         </DialogActions>
       </Dialog>
     </Fragment>
-  );
-};
+  )
+}
 
 DeleteScream.propTypes = {
   classes: PropTypes.object.isRequired,
   screamId: PropTypes.string.isRequired,
   deleteScream: PropTypes.func.isRequired
-};
+}
 
 export default connect(null, { deleteScream: dataActions.deleteScream })(
   withStyles(styles)(DeleteScream)
-);
+)

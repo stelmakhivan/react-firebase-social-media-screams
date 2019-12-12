@@ -1,4 +1,4 @@
-import * as dataActions from './dataActions';
-import * as userActions from './userActions';
+import * as dataActions from './dataActions'
+import * as userActions from './userActions'
 
-export { dataActions, userActions };
+export { dataActions, userActions }

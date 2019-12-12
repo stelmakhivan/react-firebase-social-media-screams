@@ -1,18 +1,18 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { withStyles } from '@material-ui/core/styles';
-import dayjs from 'dayjs';
+import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+import { withStyles } from '@material-ui/core/styles'
+import dayjs from 'dayjs'
 
 // MUI components
-import MuiLink from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+import MuiLink from '@material-ui/core/Link'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
 
 // Icons
-import LocationOn from '@material-ui/icons/LocationOn';
-import MuiIconLink from '@material-ui/icons/Link';
-import CalendarToday from '@material-ui/icons/CalendarToday';
+import LocationOn from '@material-ui/icons/LocationOn'
+import MuiIconLink from '@material-ui/icons/Link'
+import CalendarToday from '@material-ui/icons/CalendarToday'
 
 const styles = theme => ({
   paper: {
@@ -44,7 +44,7 @@ const styles = theme => ({
       margin: '0 0 10px 0'
     }
   }
-});
+})
 
 const StaticProfile = ({
   classes,
@@ -91,12 +91,12 @@ const StaticProfile = ({
         </div>
       </div>
     </Paper>
-  );
-};
+  )
+}
 
 StaticProfile.propTypes = {
   classes: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
-};
+}
 
-export default withStyles(styles)(StaticProfile);
+export default withStyles(styles)(StaticProfile)

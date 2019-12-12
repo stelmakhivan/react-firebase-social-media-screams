@@ -1,26 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles'
 
 // MUI components
-import Typography from '@material-ui/core/Typography';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
 
 // icons
-import ChatIcon from '@material-ui/icons/Chat';
+import ChatIcon from '@material-ui/icons/Chat'
 
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
 
-import MyButton from '../../util/MyButton';
-import DeleteScream from './DeleteScream';
-import ScreamDialog from './ScreamDialog';
-import LikeButton from './LikeButton';
+import MyButton from '../../util/MyButton'
+import DeleteScream from './DeleteScream'
+import ScreamDialog from './ScreamDialog'
+import LikeButton from './LikeButton'
 
 const styles = {
   card: {
@@ -36,14 +36,14 @@ const styles = {
     minWidth: 200,
     backgroundSize: 'contain'
   }
-};
+}
 
 export function Scream(props) {
-  const { classes, scream, user } = props;
+  const { classes, scream, user, openDialog } = props
   const {
     authenticated,
     credentials: { handle }
-  } = user;
+  } = user
   const {
     userImage,
     body,
@@ -52,13 +52,13 @@ export function Scream(props) {
     screamId,
     likeCount,
     commentCount
-  } = scream;
-  dayjs.extend(relativeTime);
+  } = scream
+  dayjs.extend(relativeTime)
 
   const deleteButton =
     authenticated && userHandle === handle ? (
       <DeleteScream screamId={screamId} />
-    ) : null;
+    ) : null
 
   return (
     <Card className={classes.card}>
@@ -89,10 +89,14 @@ export function Scream(props) {
           <ChatIcon color="primary" />
         </MyButton>
         <span>{commentCount} Comments</span>
-        <ScreamDialog screamId={screamId} userHandle={userHandle} />
+        <ScreamDialog
+          screamId={screamId}
+          userHandle={userHandle}
+          openDialog={openDialog}
+        />
       </CardContent>
     </Card>
-  );
+  )
 }
 
 Scream.propTypes = {
@@ -106,13 +110,12 @@ Scream.propTypes = {
     likeCount: PropTypes.number,
     commentCount: PropTypes.number
   }).isRequired,
-  user: PropTypes.object.isRequired
-};
+  user: PropTypes.object.isRequired,
+  openDialog: PropTypes.bool
+}
 
 const mapStateToProps = state => ({
   user: state.user
-});
+})
 
-export default connect(
-  mapStateToProps
-)(withStyles(styles)(Scream));
+export default connect(mapStateToProps)(withStyles(styles)(Scream))

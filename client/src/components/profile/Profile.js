@@ -1,26 +1,26 @@
-import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import dayjs from 'dayjs';
-import { userActions } from '../../redux/actions';
+import React, { PureComponent, Fragment } from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import dayjs from 'dayjs'
+import { userActions } from '../../redux/actions'
 
-import EditDetails from './EditDetails';
+import EditDetails from './EditDetails'
 
 // MUI components
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import MuiLink from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button'
+import Paper from '@material-ui/core/Paper'
+import MuiLink from '@material-ui/core/Link'
+import Typography from '@material-ui/core/Typography'
 
 // icons
-import LocationOn from '@material-ui/icons/LocationOn';
-import MuiIconLink from '@material-ui/icons/Link';
-import CalendarToday from '@material-ui/icons/CalendarToday';
-import EditIcon from '@material-ui/icons/Edit';
-import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
-import MyButton from '../../util/MyButton';
+import LocationOn from '@material-ui/icons/LocationOn'
+import MuiIconLink from '@material-ui/icons/Link'
+import CalendarToday from '@material-ui/icons/CalendarToday'
+import EditIcon from '@material-ui/icons/Edit'
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn'
+import MyButton from '../../util/MyButton'
 
 const styles = theme => ({
   paper: {
@@ -68,7 +68,7 @@ const styles = theme => ({
       margin: '20px 10px'
     }
   }
-});
+})
 
 export class Profile extends PureComponent {
   static propTypes = {
@@ -76,24 +76,24 @@ export class Profile extends PureComponent {
     classes: PropTypes.object.isRequired,
     logoutUser: PropTypes.func.isRequired,
     uploadImage: PropTypes.func.isRequired
-  };
+  }
 
   handleImageChange = e => {
-    const image = e.target.files[0];
+    const image = e.target.files[0]
     // send to server
-    const formData = new FormData();
-    formData.append('image', image, image.name);
-    this.props.uploadImage(formData);
-  };
+    const formData = new FormData()
+    formData.append('image', image, image.name)
+    this.props.uploadImage(formData)
+  }
 
   handleEditPicture = () => {
-    const fileInput = document.getElementById('imageInput');
-    fileInput.click();
-  };
+    const fileInput = document.getElementById('imageInput')
+    fileInput.click()
+  }
 
   handleLogout = () => {
-    this.props.logoutUser();
-  };
+    this.props.logoutUser()
+  }
 
   render() {
     const {
@@ -103,7 +103,7 @@ export class Profile extends PureComponent {
         loading,
         authenticated
       }
-    } = this.props;
+    } = this.props
 
     let profileMarkup = !loading ? (
       authenticated ? (
@@ -191,22 +191,22 @@ export class Profile extends PureComponent {
       )
     ) : (
       <p>loading...</p>
-    );
+    )
 
-    return profileMarkup;
+    return profileMarkup
   }
 }
 
 const mapStateToProps = state => ({
   user: state.user
-});
+})
 
 const mapDispatchToProps = {
   logoutUser: userActions.logoutUser,
   uploadImage: userActions.uploadImage
-};
+}
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withStyles(styles)(Profile));
+)(withStyles(styles)(Profile))

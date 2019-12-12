@@ -1,23 +1,23 @@
-import React, { Fragment, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
-import { dataActions } from '../../redux/actions';
-import theme from '../../util/theme';
+import React, { Fragment, useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { withStyles } from '@material-ui/core/styles'
+import { connect } from 'react-redux'
+import { dataActions } from '../../redux/actions'
+import theme from '../../util/theme'
 
 // MUI components
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
+import Dialog from '@material-ui/core/Dialog'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 // icons
-import AddIcon from '@material-ui/icons/Add';
-import CloseIcon from '@material-ui/icons/Close';
+import AddIcon from '@material-ui/icons/Add'
+import CloseIcon from '@material-ui/icons/Close'
 
-import MyButton from '../../util/MyButton';
+import MyButton from '../../util/MyButton'
 
 const styles = theme => ({
   closeButton: {
@@ -34,7 +34,7 @@ const styles = theme => ({
   progressSpinner: {
     position: 'absolute'
   }
-});
+})
 
 const PostScream = props => {
   const {
@@ -42,38 +42,38 @@ const PostScream = props => {
     UI: { loading, errors: UIerrors },
     postScream,
     clearErrors
-  } = props;
-  const [open, setModalVisibility] = useState(false);
-  const [body, setBody] = useState('');
-  const [errors, setErrors] = useState({});
+  } = props
+  const [open, setModalVisibility] = useState(false)
+  const [body, setBody] = useState('')
+  const [errors, setErrors] = useState({})
 
   const handleChange = e => {
-    setBody(e.target.value);
-  };
+    setBody(e.target.value)
+  }
 
   const handleSubmit = e => {
-    e.preventDefault();
-    postScream({ body });
-  };
+    e.preventDefault()
+    postScream({ body })
+  }
 
   const hanldeOpen = () => {
-    setModalVisibility(true);
-  };
+    setModalVisibility(true)
+  }
 
   const hanldeClose = () => {
-    setBody('');
-    setErrors({});
-    setModalVisibility(false);
-  };
+    setBody('')
+    setErrors({})
+    setModalVisibility(false)
+  }
 
   useEffect(() => {
     if (UIerrors) {
-      setErrors(UIerrors);
+      setErrors(UIerrors)
     }
     if (!Object.keys(UIerrors).length && !loading) {
-      hanldeClose();
+      hanldeClose()
     }
-  }, [UIerrors, loading]);
+  }, [UIerrors, loading])
 
   return (
     <Fragment>
@@ -124,21 +124,21 @@ const PostScream = props => {
         </DialogContent>
       </Dialog>
     </Fragment>
-  );
-};
+  )
+}
 
 PostScream.propTypes = {
   classes: PropTypes.object.isRequired,
   postScream: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired
-};
+}
 
 const mapStateToProps = state => ({
   UI: state.UI
-});
+})
 
 export default connect(mapStateToProps, {
   postScream: dataActions.postScream,
   clearErrors: dataActions.clearErrors
-})(withStyles(styles)(PostScream));
+})(withStyles(styles)(PostScream))

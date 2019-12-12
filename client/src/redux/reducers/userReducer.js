@@ -5,7 +5,7 @@ import {
   LOADING_USER,
   LIKE_SCREAM,
   UNLIKE_SCREAM
-} from '../types';
+} from '../types'
 
 const initialState = {
   authenticated: false,
@@ -13,7 +13,7 @@ const initialState = {
   credentials: {},
   likes: [],
   notifications: []
-};
+}
 
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -21,20 +21,20 @@ export default function(state = initialState, action) {
       return {
         ...state,
         authenticated: true
-      };
+      }
     case SET_UNAUTHENTICATED:
-      return initialState;
+      return initialState
     case SET_USER:
       return {
         authenticated: true,
         loading: false,
         ...action.payload
-      };
+      }
     case LOADING_USER:
       return {
         ...state,
         loading: true
-      };
+      }
     case LIKE_SCREAM:
       return {
         ...state,
@@ -45,15 +45,15 @@ export default function(state = initialState, action) {
             screamId: action.payload.screamId
           }
         ]
-      };
+      }
     case UNLIKE_SCREAM:
       return {
         ...state,
         likes: state.likes.filter(
           like => like.screamId !== action.payload.screamId
         )
-      };
+      }
     default:
-      return state;
+      return state
   }
 }
