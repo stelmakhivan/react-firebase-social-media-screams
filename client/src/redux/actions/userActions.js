@@ -60,10 +60,10 @@ export const getUserData = () => dispatch => {
     .then(res => {
       dispatch({
         type: SET_USER,
-        payload: res.data.userData
+        payload: res.data
       })
     })
-    .catch(err =>
+    .catch(err => 
       dispatch({
         type: SET_ERRORS,
         payload: err.response.data.errors || err.response.data
