@@ -11,10 +11,10 @@ import Button from '@material-ui/core/Button'
 
 // icons
 import HomeIcon from '@material-ui/icons/Home'
-import NotificationsIcon from '@material-ui/icons/Notifications'
 
 import MyButton from '../../util/MyButton'
 import PostScream from '../scream/PostScream'
+import Notifications from './Notifications'
 
 export class Navbar extends PureComponent {
   static propTypes = {
@@ -34,11 +34,7 @@ export class Navbar extends PureComponent {
                   <HomeIcon htmlColor={theme.palette.primary.contrastText} />
                 </MyButton>
               </Link>
-              <MyButton tip="Notifications">
-                <NotificationsIcon
-                  htmlColor={theme.palette.primary.contrastText}
-                />
-              </MyButton>
+              <Notifications />
             </Fragment>
           ) : (
             <Fragment>
