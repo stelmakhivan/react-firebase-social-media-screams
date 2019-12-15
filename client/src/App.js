@@ -20,6 +20,9 @@ import store from './redux/store'
 import { SET_AUTHENTICATED } from './redux/types'
 import { userActions } from './redux/actions'
 
+axios.defaults.baseURL =
+  'https://europe-west1-social-media-screams.cloudfunctions.net/api'
+
 const theme = createMuiTheme(themeConfig)
 
 const token = localStorage.getItem('FBIdToken')
